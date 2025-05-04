@@ -9,7 +9,8 @@ def run(args, pipe_stdin=False, pipe_stdout=False, pipe_stderr=False, quiet_stde
     returns Popen class if success
     otherwise None
     """
-    args = ['ffmpeg'] + args
+    # replace this with os env setup
+    args = ['_cache/_dl_cache/ffmpeg-4.4/bin/ffmpeg.exe'] + args
 
     stdin_stream = subprocess.PIPE if pipe_stdin else None
     stdout_stream = subprocess.PIPE if pipe_stdout else None
@@ -23,21 +24,7 @@ def run(args, pipe_stdin=False, pipe_stdout=False, pipe_stderr=False, quiet_stde
     except Exception as e:
         print('ffmpeg exception: ', e)
     return None
-
-
-def probe(filename):
-    """Run ffprobe on the specified file and return a JSON representation of the output.
-
-    Raises:
-        Exception if ffprobe returns a non-zero exit code,
-    """
-    args = ['ffprobe', '-show_format', '-show_streams', '-of', 'json', filename]
-
-    p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = p.communicate()
-    if p.returncode != 0:
-        raise Exception('ffprobe', out, err)
-    return json.loads(out.decode('utf-8'))
+ 
 
 def probe(filename):
     """Run ffprobe on the specified file and return a JSON representation of the output.
@@ -45,12 +32,13 @@ def probe(filename):
     Raises:
         Exception if ffprobe returns a non-zero exit code,
     """
-    args = ['ffprobe', '-show_format', '-show_streams', '-of', 'json', filename]
-    #'-count_frames',
+    # replace this with os env setup
+    args = ['_cache/_dl_cache/ffmpeg-4.4/bin/ffprobe.exe', '-show_format', '-show_streams', '-of', 'json', filename]
 
     p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = p.communicate()
     if p.returncode != 0:
         raise Exception('ffprobe', out, err)
     return json.loads(out.decode('utf-8'))
+ 
 

@@ -48,7 +48,7 @@ class VideoFilePlayer(FramePlayer):
         if not filepath.suffix in VideoFilePlayer.SUPPORTED_VIDEO_FILE_SUFFIXES:
             raise Exception(f'Supported video files: {VideoFilePlayer.SUPPORTED_VIDEO_FILE_SUFFIXES}')
 
-        probe_info = lib_ffmpeg.probe (str(filepath))
+        probe_info = lib_ffmpeg.probe(str(filepath))
         # Analize probe_info
         stream_v_idx = None
         stream_fps = None
